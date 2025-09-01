@@ -3,181 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Moto Esquivando Obstáculos</title>
+    <title>Moto Obstáculos</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
-        canvas {
-            border: 1px solid #000;
-            background-color: #fff;
+        
+        #game-container {
+            position: relative;
+            width: 400px;
+        }
+        
+        #game-canvas {
+            background-color: #34495e;
+            border: 2px solid #ecf0f1;
+            border-radius: 5px;
+        }
+        
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+        
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        #start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #c0392b;
+        }
+        
+        #instructions {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <div id="game-container">
+        <canvas id="game-canvas" width="400" height="600"></canvas>
+        <div id="score">Puntuación: 0</div>
+        <div id="game-over">
+            <h2>Game Over</h2>
+            <p id="final-score">Puntuación: 0</p>
+            <button id="restart-button">Reiniciar</button>
+        </div>
+        <div id="start-screen">
+            <h2>Moto Obstáculos</h2>
+            <div id="instructions">
+                <p>← → : Mover moto izquierda/derecha</p>
+                <p>ESPACIO : Activiar invulnerabilidad (3 segundos)</p>
+                <p>Auto rojo: Obstáculo normal</p>
+                <p>Auto verde: Se dirige hacia ti</p>
+                <p>Auto amarillo: Más rápido</p>
+            </div>
+            <button id="start-button">Comenzar</button>
+        </div>
+    </div>
+
     <script>
-        const canvas = document.getElementById('gameCanvas');
+        // Variables del juego
+        const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
-
-        // Configuración del juego
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const laneWidth = canvasWidth / 3;
-        const playerWidth = 40;
-        const playerHeight = 60;
-        const obstacleWidth = 40;
-        const obstacleHeight = 60;
-        const playerY = canvasHeight - playerHeight - 20; // Posición fija en Y
-        let playerX = (canvasWidth / 2) - (playerWidth / 2); // Posición inicial en X
-        const playerSpeed = 5;
-        const baseObstacleSpeed = 3;
-        const invulnerabilityTime = 3000; // 3 segundos en ms
-
-        let obstacles = [];
+        const scoreElement = document.getElementById('score');
+        const finalScoreElement = document.getElementById('final-score');
+        const gameOverElement = document.getElementById('game-over');
+        const startScreenElement = document.getElementById('start-screen');
+        const startButton = document.getElementById('start-button');
+        const restartButton = document.getElementById('restart-button');
+        
+        let gameRunning = false;
         let score = 0;
-        let gameOver = false;
-        let keys = {};
+        let animationId;
         let invulnerable = false;
-        let invulnerabilityEndTime = 0;
-        let spawnInterval = 2000; // Inicial, en ms
-        let spawnTimer;
-
-        // Tipos de obstáculos
-        const obstacleTypes = [
-            { color: 'red', speed: baseObstacleSpeed, behavior: 'straight' }, // Rojo: recto
-            { color: 'green', speed: baseObstacleSpeed, behavior: 'deviate' }, // Verde: se desvía
-            { color: 'yellow', speed: baseObstacleSpeed * 1.2, behavior: 'straight' } // Amarillo: más rápido
-        ];
-
-        // Manejo de teclas
-        window.addEventListener('keydown', (e) => {
-            keys[e.key] = true;
-            if (e.key === ' ' && !invulnerable) { // Espacio para invulnerabilidad
-                invulnerable = true;
-                invulnerabilityEndTime = Date.now() + invulnerabilityTime;
+        let invulnerableTime = 0;
+        
+        // Configuración del juego
+        const ROAD_WIDTH = 400;
+        const LANE_COUNT = 3;
+        const LANE_WIDTH = ROAD_WIDTH / LANE_COUNT;
+        const BIKE_WIDTH = 40;
+        const BIKE_HEIGHT = 60;
+        const CAR_WIDTH = 50;
+        const CAR_HEIGHT = 80;
+        
+        // Posición inicial de la moto
+        let bike = {
+            x: ROAD_WIDTH / 2 - BIKE_WIDTH / 2,
+            y: canvas.height - BIKE_HEIGHT - 20,
+            width: BIKE_WIDTH,
+            height: BIKE_HEIGHT,
+            lane: 1, // Carril central
+            speed: 0
+        };
+        
+        // Array de obstáculos
+        let obstacles = [];
+        
+        // Inicializar el juego
+        function init() {
+            gameRunning = true;
+            score = 0;
+            obstacles = [];
+            bike.lane = 1;
+            bike.x = LANE_WIDTH * bike.lane + (LANE_WIDTH - BIKE_WIDTH) / 2;
+            invulnerable = false;
+            invulnerableTime = 0;
+            
+            updateScore();
+            gameLoop();
+        }
+        
+        // Bucle principal del juego
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            clearCanvas();
+            updateBike();
+            updateObstacles();
+            drawRoad();
+            drawBike();
+            drawObstacles();
+            updateInvulnerability();
+            checkCollisions();
+            
+            // Aumentar dificultad con el tiempo
+            if (score > 0 && score % 100 === 0) {
+                // Cada 100 puntos aumenta la probabilidad de generación de obstáculos
+            }
+            
+            animationId = requestAnimationFrame(gameLoop);
+        }
+        
+        // Limpiar el canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Dibujar la carretera
+        function drawRoad() {
+            // Fondo de la carretera
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(0, 0, ROAD_WIDTH, canvas.height);
+            
+            // Dibujar carriles
+            for (let i = 1; i < LANE_COUNT; i++) {
+                ctx.setLineDash([30, 20]);
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = '#ecf0f1';
+                ctx.beginPath();
+                ctx.moveTo(i * LANE_WIDTH, 0);
+                ctx.lineTo(i * LANE_WIDTH, canvas.height);
+                ctx.stroke();
+            }
+        }
+        
+        // Actualizar posición de la moto
+        function updateBike() {
+            // La moto se mantiene en su carril actual
+            const targetX = LANE_WIDTH * bike.lane + (LANE_WIDTH - BIKE_WIDTH) / 2;
+            bike.x += (targetX - bike.x) * 0.2; // Suavizar el movimiento
+        }
+        
+        // Dibujar la moto
+        function drawBike() {
+            ctx.save();
+            
+            if (invulnerable) {
+                ctx.globalAlpha = 0.5; // Hacer la moto semi-transparente
+            }
+            
+            // Cuerpo de la moto
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(bike.x, bike.y, BIKE_WIDTH, BIKE_HEIGHT / 2);
+            
+            // Manillar
+            ctx.fillStyle = '#34495e';
+            ctx.fillRect(bike.x - 5, bike.y, 5, 10);
+            ctx.fillRect(bike.x + BIKE_WIDTH, bike.y, 5, 10);
+            
+            // Ruedas
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(bike.x - 5, bike.y + BIKE_HEIGHT - 15, 15, 10);
+            ctx.fillRect(bike.x + BIKE_WIDTH - 10, bike.y + BIKE_HEIGHT - 15, 15, 10);
+            
+            ctx.restore();
+        }
+        
+        // Generar nuevos obstáculos
+        function generateObstacle() {
+            if (!gameRunning) return;
+            
+            const lane = Math.floor(Math.random() * LANE_COUNT);
+            const carType = Math.random();
+            let obstacle;
+            
+            if (carType < 0.6) {
+                // Auto rojo (60% de probabilidad)
+                obstacle = {
+                    x: LANE_WIDTH * lane + (LANE_WIDTH - CAR_WIDTH) / 2,
+                    y: -CAR_HEIGHT,
+                    width: CAR_WIDTH,
+                    height: CAR_HEIGHT,
+                    speed: 3 + Math.random() * 2 + score / 1000, // Aumenta con la puntuación
+                    type: 'red',
+                    lane: lane
+                };
+            } else if (carType < 0.8) {
+                // Auto verde (20% de probabilidad)
+                obstacle = {
+                    x: LANE_WIDTH * lane + (LANE_WIDTH - CAR_WIDTH) / 2,
+                    y: -CAR_HEIGHT,
+                    width: CAR_WIDTH,
+                    height: CAR_HEIGHT,
+                    speed: 2.5 + Math.random() * 1.5 + score / 1000,
+                    type: 'green',
+                    lane: lane,
+                    moved: false
+                };
+            } else {
+                // Auto amarillo (20% de probabilidad)
+                obstacle = {
+                    x: LANE_WIDTH * lane + (LANE_WIDTH - CAR_WIDTH) / 2,
+                    y: -CAR_HEIGHT,
+                    width: CAR_WIDTH,
+                    height: CAR_HEIGHT,
+                    speed: 4 + Math.random() * 2 + score / 1000,
+                    type: 'yellow',
+                    lane: lane
+                };
+            }
+            
+            obstacles.push(obstacle);
+            
+            // Programar el próximo obstáculo (con probabilidad creciente)
+            const nextObstacleTime = Math.max(500, 2000 - score / 2);
+            setTimeout(generateObstacle, nextObstacleTime);
+        }
+        
+        // Actualizar obstáculos
+        function updateObstacles() {
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const obstacle = obstacles[i];
+                
+                // Mover el obstáculo hacia abajo
+                obstacle.y += obstacle.speed;
+                
+                // Comportamiento especial para autos verdes
+                if (obstacle.type === 'green' && !obstacle.moved && obstacle.y > canvas.height / 2) {
+                    // Cambiar al carril de la moto
+                    obstacle.lane = bike.lane;
+                    obstacle.moved = true;
+                }
+                
+                // Posicionar el obstáculo en su carril
+                const targetX = LANE_WIDTH * obstacle.lane + (LANE_WIDTH - CAR_WIDTH) / 2;
+                obstacle.x += (targetX - obstacle.x) * 0.05;
+                
+                // Eliminar obstáculos que salieron de la pantalla
+                if (obstacle.y > canvas.height) {
+                    obstacles.splice(i, 1);
+                    score += 10;
+                    updateScore();
+                }
+            }
+        }
+        
+        // Dibujar obstáculos
+        function drawObstacles() {
+            obstacles.forEach(obstacle => {
+                // Color según el tipo
+                if (obstacle.type === 'red') {
+                    ctx.fillStyle = '#e74c3c';
+                } else if (obstacle.type === 'green') {
+                    ctx.fillStyle = '#2ecc71';
+                } else if (obstacle.type === 'yellow') {
+                    ctx.fillStyle = '#f1c40f';
+                }
+                
+                // Dibujar el auto
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+                
+                // Detalles del auto
+                ctx.fillStyle = '#2c3e50';
+                ctx.fillRect(obstacle.x + 5, obstacle.y + 5, obstacle.width - 10, 15);
+                ctx.fillRect(obstacle.x + 5, obstacle.y + obstacle.height - 20, obstacle.width - 10, 15);
+            });
+        }
+        
+        // Comprobar colisiones
+        function checkCollisions() {
+            if (invulnerable) return;
+            
+            for (const obstacle of obstacles) {
+                if (
+                    bike.x < obstacle.x + obstacle.width &&
+                    bike.x + bike.width > obstacle.x &&
+                    bike.y < obstacle.y + obstacle.height &&
+                    bike.y + bike.height > obstacle.y
+                ) {
+                    gameOver();
+                    return;
+                }
+            }
+        }
+        
+        // Actualizar invulnerabilidad
+        function updateInvulnerability() {
+            if (invulnerable) {
+                invulnerableTime--;
+                
+                if (invulnerableTime <= 0) {
+                    invulnerable = false;
+                }
+            }
+        }
+        
+        // Activar invulnerabilidad
+        function activateInvulnerability() {
+            if (!gameRunning) return;
+            
+            invulnerable = true;
+            invulnerableTime = 180; // 3 segundos a 60fps
+        }
+        
+        // Actualizar puntuación
+        function updateScore() {
+            scoreElement.textContent = `Puntuación: ${score}`;
+        }
+        
+        // Game Over
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            
+            finalScoreElement.textContent = `Puntuación: ${score}`;
+            gameOverElement.style.display = 'block';
+        }
+        
+        // Event listeners
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    if (bike.lane > 0) bike.lane--;
+                    break;
+                case 'ArrowRight':
+                    if (bike.lane < LANE_COUNT - 1) bike.lane++;
+                    break;
+                case ' ':
+                    activateInvulnerability();
+                    break;
             }
         });
-        window.addEventListener('keyup', (e) => {
-            keys[e.key] = false;
+        
+        startButton.addEventListener('click', () => {
+            startScreenElement.style.display = 'none';
+            init();
+            // Generar el primer obstáculo después de un breve retraso
+            setTimeout(generateObstacle, 1000);
         });
-
-        // Función para spawn de obstáculos
-        function spawnObstacle() {
-            const type = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
-            const lane = Math.floor(Math.random() * 3);
-            const x = lane * laneWidth + (laneWidth / 2) - (obstacleWidth / 2);
-            obstacles.push({
-                x: x,
-                y: -obstacleHeight,
-                ...type,
-                deviated: false // Para verdes
-            });
-
-            // Aumentar frecuencia de spawn con el tiempo
-            spawnInterval = Math.max(500, spawnInterval - 50); // Mínimo 500ms
-            clearTimeout(spawnTimer);
-            spawnTimer = setTimeout(spawnObstacle, spawnInterval);
-        }
-
-        // Actualizar juego
-        function update() {
-            if (gameOver) return;
-
-            // Mover jugador
-            if (keys['ArrowLeft'] && playerX > 0) {
-                playerX -= playerSpeed;
-            }
-            if (keys['ArrowRight'] && playerX + playerWidth < canvasWidth) {
-                playerX += playerSpeed;
-            }
-
-            // Actualizar invulnerabilidad
-            if (invulnerable && Date.now() > invulnerabilityEndTime) {
-                invulnerable = false;
-            }
-
-            // Mover obstáculos
-            obstacles.forEach((obs, index) => {
-                obs.y += obs.speed;
-
-                // Comportamiento de desviación para verdes
-                if (obs.behavior === 'deviate' && !obs.deviated && obs.y > canvasHeight / 2) {
-                    obs.deviated = true;
-                    // Desviarse hacia el jugador
-                    const direction = playerX > obs.x ? 1 : -1;
-                    obs.x += direction * (Math.random() * 50 + 50); // Desvío aleatorio pero significativo
-                    // Asegurar que no salga de la pantalla
-                    obs.x = Math.max(0, Math.min(canvasWidth - obstacleWidth, obs.x));
-                }
-
-                // Eliminar si sale de la pantalla
-                if (obs.y > canvasHeight) {
-                    obstacles.splice(index, 1);
-                    score++;
-                }
-
-                // Chequear colisión si no invulnerable
-                if (!invulnerable && checkCollision(playerX, playerY, playerWidth, playerHeight, obs.x, obs.y, obstacleWidth, obstacleHeight)) {
-                    gameOver = true;
-                }
-            });
-
-            draw();
-            requestAnimationFrame(update);
-        }
-
-        // Dibujar
-        function draw() {
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-            // Dibujar carriles decorativos
-            ctx.strokeStyle = '#ccc';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(laneWidth, 0);
-            ctx.lineTo(laneWidth, canvasHeight);
-            ctx.moveTo(laneWidth * 2, 0);
-            ctx.lineTo(laneWidth * 2, canvasHeight);
-            ctx.stroke();
-
-            // Dibujar jugador (moto)
-            ctx.fillStyle = 'blue';
-            ctx.globalAlpha = invulnerable ? 0.5 : 1; // Semi-transparente si invulnerable
-            ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
-            ctx.globalAlpha = 1;
-
-            // Dibujar obstáculos (autos)
-            obstacles.forEach(obs => {
-                ctx.fillStyle = obs.color;
-                ctx.fillRect(obs.x, obs.y, obstacleWidth, obstacleHeight);
-            });
-
-            // Dibujar score
-            ctx.fillStyle = 'black';
-            ctx.font = '20px Arial';
-            ctx.fillText(`Puntuación: ${score}`, 10, 30);
-
-            if (gameOver) {
-                ctx.fillStyle = 'red';
-                ctx.font = '40px Arial';
-                ctx.fillText('Game Over', canvasWidth / 2 - 100, canvasHeight / 2);
-            }
-        }
-
-        // Chequear colisión
-        function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
-            return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
-        }
-
-        // Iniciar juego
-        spawnTimer = setTimeout(spawnObstacle, spawnInterval);
-        update();
+        
+        restartButton.addEventListener('click', () => {
+            gameOverElement.style.display = 'none';
+            init();
+            // Generar el primer obstáculo después de un breve retraso
+            setTimeout(generateObstacle, 1000);
+        });
     </script>
 </body>
 </html>
