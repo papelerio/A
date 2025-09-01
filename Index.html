@@ -5,104 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto Obstáculos</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #2c3e50;
-            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
+            color: #fff;
         }
         
         #game-container {
             position: relative;
             width: 400px;
+            margin: 20px;
+        }
+        
+        #game-ui {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        #score, #lives, #invulnerability {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
         }
         
         #game-canvas {
-            background-color: #34495e;
-            border: 2px solid #ecf0f1;
-            border-radius: 5px;
+            background-color: #2c3e50;
+            border: 3px solid #3498db;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
         }
         
-        #score {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-size: 20px;
-        }
-        
-        #game-over {
+        #game-over, #start-screen {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
-            font-size: 30px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
+            width: 90%;
+            max-width: 350px;
+            border: 2px solid #e74c3c;
+            box-shadow: 0 0 25px rgba(231, 76, 60, 0.4);
         }
         
         #start-screen {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
+            display: block;
+        }
+        
+        #game-over {
+            display: none;
+        }
+        
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            margin: 10px 0;
+            line-height: 1.5;
         }
         
         button {
-            background-color: #e74c3c;
+            background: #e74c3c;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             margin-top: 20px;
+            transition: all 0.3s;
+            font-weight: bold;
         }
         
         button:hover {
-            background-color: #c0392b;
+            background: #c0392b;
+            transform: scale(1.05);
         }
         
         #instructions {
-            margin-top: 20px;
-            font-size: 16px;
+            background: rgba(52, 152, 219, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
             text-align: left;
+        }
+        
+        .instruction-item {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .instruction-item span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: rgba(231, 76, 60, 0.2);
+            border-radius: 5px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+        
+        .car-example {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+        
+        .red-car {
+            background: #e74c3c;
+        }
+        
+        .green-car {
+            background: #2ecc71;
+        }
+        
+        .yellow-car {
+            background: #f1c40f;
+        }
+        
+        #invulnerability.active {
+            background: rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
         }
     </style>
 </head>
 <body>
     <div id="game-container">
-        <canvas id="game-canvas" width="400" height="600"></canvas>
-        <div id="score">Puntuación: 0</div>
-        <div id="game-over">
-            <h2>Game Over</h2>
-            <p id="final-score">Puntuación: 0</p>
-            <button id="restart-button">Reiniciar</button>
+        <div id="game-ui">
+            <div id="score">Puntuación: 0</div>
+            <div id="lives">Vidas: 3</div>
+            <div id="invulnerability">Escudo: Listo</div>
         </div>
+        
+        <canvas id="game-canvas" width="400" height="600"></canvas>
+        
         <div id="start-screen">
-            <h2>Moto Obstáculos</h2>
+            <h1>MOTO OBSTÁCULOS</h1>
             <div id="instructions">
-                <p>← → : Mover moto izquierda/derecha</p>
-                <p>ESPACIO : Activiar invulnerabilidad (3 segundos)</p>
-                <p>Auto rojo: Obstáculo normal</p>
-                <p>Auto verde: Se dirige hacia ti</p>
-                <p>Auto amarillo: Más rápido</p>
+                <h2>Controles:</h2>
+                <div class="instruction-item"><span>←</span> Mover a la izquierda</div>
+                <div class="instruction-item"><span>→</span> Mover a la derecha</div>
+                <div class="instruction-item"><span>␣</span> Activiar escudo (3 seg)</div>
+                
+                <h2>Obstáculos:</h2>
+                <div class="instruction-item"><div class="car-example red-car"></div> Auto rojo: Obstáculo normal</div>
+                <div class="instruction-item"><div class="car-example green-car"></div> Auto verde: Se dirige hacia ti</div>
+                <div class="instruction-item"><div class="car-example yellow-car"></div> Auto amarillo: Más rápido</div>
             </div>
-            <button id="start-button">Comenzar</button>
+            <button id="start-button">¡Comenzar Juego!</button>
+        </div>
+        
+        <div id="game-over">
+            <h1>¡GAME OVER!</h1>
+            <h2 id="final-score">Puntuación: 0</h2>
+            <p>¿Quieres intentarlo de nuevo?</p>
+            <button id="restart-button">Reiniciar Juego</button>
         </div>
     </div>
 
@@ -111,6 +196,8 @@
         const canvas = document.getElementById('game-canvas');
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const invElement = document.getElementById('invulnerability');
         const finalScoreElement = document.getElementById('final-score');
         const gameOverElement = document.getElementById('game-over');
         const startScreenElement = document.getElementById('start-screen');
@@ -119,9 +206,12 @@
         
         let gameRunning = false;
         let score = 0;
+        let lives = 3;
         let animationId;
         let invulnerable = false;
         let invulnerableTime = 0;
+        let lastTime = 0;
+        let obstacleSpeed = 2;
         
         // Configuración del juego
         const ROAD_WIDTH = 400;
@@ -149,32 +239,46 @@
         function init() {
             gameRunning = true;
             score = 0;
+            lives = 3;
             obstacles = [];
             bike.lane = 1;
             bike.x = LANE_WIDTH * bike.lane + (LANE_WIDTH - BIKE_WIDTH) / 2;
             invulnerable = false;
             invulnerableTime = 0;
+            obstacleSpeed = 2;
             
-            updateScore();
-            gameLoop();
+            updateUI();
+            gameOverElement.style.display = 'none';
+            
+            if (lastTime === 0) {
+                lastTime = Date.now();
+                gameLoop();
+            }
+            
+            // Generar el primer obstáculo después de un breve retraso
+            setTimeout(generateObstacle, 1000);
         }
         
         // Bucle principal del juego
         function gameLoop() {
             if (!gameRunning) return;
             
+            const currentTime = Date.now();
+            const deltaTime = currentTime - lastTime;
+            lastTime = currentTime;
+            
             clearCanvas();
             updateBike();
-            updateObstacles();
+            updateObstacles(deltaTime);
             drawRoad();
             drawBike();
             drawObstacles();
-            updateInvulnerability();
+            updateInvulnerability(deltaTime);
             checkCollisions();
             
             // Aumentar dificultad con el tiempo
-            if (score > 0 && score % 100 === 0) {
-                // Cada 100 puntos aumenta la probabilidad de generación de obstáculos
+            if (score > 0 && score % 500 === 0) {
+                obstacleSpeed += 0.2;
             }
             
             animationId = requestAnimationFrame(gameLoop);
@@ -201,6 +305,17 @@
                 ctx.lineTo(i * LANE_WIDTH, canvas.height);
                 ctx.stroke();
             }
+            
+            // Dibujar bordes de la carretera
+            ctx.setLineDash([]);
+            ctx.lineWidth = 8;
+            ctx.strokeStyle = '#95a5a6';
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, canvas.height);
+            ctx.moveTo(ROAD_WIDTH, 0);
+            ctx.lineTo(ROAD_WIDTH, canvas.height);
+            ctx.stroke();
         }
         
         // Actualizar posición de la moto
@@ -232,6 +347,12 @@
             ctx.fillRect(bike.x - 5, bike.y + BIKE_HEIGHT - 15, 15, 10);
             ctx.fillRect(bike.x + BIKE_WIDTH - 10, bike.y + BIKE_HEIGHT - 15, 15, 10);
             
+            // Luz delantera
+            ctx.fillStyle = '#f1c40f';
+            ctx.beginPath();
+            ctx.arc(bike.x + BIKE_WIDTH / 2, bike.y, 5, 0, Math.PI, true);
+            ctx.fill();
+            
             ctx.restore();
         }
         
@@ -250,7 +371,7 @@
                     y: -CAR_HEIGHT,
                     width: CAR_WIDTH,
                     height: CAR_HEIGHT,
-                    speed: 3 + Math.random() * 2 + score / 1000, // Aumenta con la puntuación
+                    speed: obstacleSpeed + Math.random() * 0.5,
                     type: 'red',
                     lane: lane
                 };
@@ -261,7 +382,7 @@
                     y: -CAR_HEIGHT,
                     width: CAR_WIDTH,
                     height: CAR_HEIGHT,
-                    speed: 2.5 + Math.random() * 1.5 + score / 1000,
+                    speed: obstacleSpeed + Math.random() * 0.5,
                     type: 'green',
                     lane: lane,
                     moved: false
@@ -273,7 +394,7 @@
                     y: -CAR_HEIGHT,
                     width: CAR_WIDTH,
                     height: CAR_HEIGHT,
-                    speed: 4 + Math.random() * 2 + score / 1000,
+                    speed: obstacleSpeed + 1.5 + Math.random() * 0.5,
                     type: 'yellow',
                     lane: lane
                 };
@@ -287,12 +408,12 @@
         }
         
         // Actualizar obstáculos
-        function updateObstacles() {
+        function updateObstacles(deltaTime) {
             for (let i = obstacles.length - 1; i >= 0; i--) {
                 const obstacle = obstacles[i];
                 
                 // Mover el obstáculo hacia abajo
-                obstacle.y += obstacle.speed;
+                obstacle.y += obstacle.speed * (deltaTime / 16);
                 
                 // Comportamiento especial para autos verdes
                 if (obstacle.type === 'green' && !obstacle.moved && obstacle.y > canvas.height / 2) {
@@ -309,7 +430,7 @@
                 if (obstacle.y > canvas.height) {
                     obstacles.splice(i, 1);
                     score += 10;
-                    updateScore();
+                    updateUI();
                 }
             }
         }
@@ -333,6 +454,10 @@
                 ctx.fillStyle = '#2c3e50';
                 ctx.fillRect(obstacle.x + 5, obstacle.y + 5, obstacle.width - 10, 15);
                 ctx.fillRect(obstacle.x + 5, obstacle.y + obstacle.height - 20, obstacle.width - 10, 15);
+                
+                // Ventanas
+                ctx.fillStyle = '#ecf0f1';
+                ctx.fillRect(obstacle.x + 10, obstacle.y + 25, obstacle.width - 20, 15);
             });
         }
         
@@ -347,34 +472,49 @@
                     bike.y < obstacle.y + obstacle.height &&
                     bike.y + bike.height > obstacle.y
                 ) {
-                    gameOver();
+                    handleCollision();
                     return;
                 }
             }
         }
         
+        // Manejar colisión
+        function handleCollision() {
+            lives--;
+            updateUI();
+            
+            if (lives <= 0) {
+                gameOver();
+            }
+        }
+        
         // Actualizar invulnerabilidad
-        function updateInvulnerability() {
+        function updateInvulnerability(deltaTime) {
             if (invulnerable) {
-                invulnerableTime--;
+                invulnerableTime -= deltaTime;
                 
                 if (invulnerableTime <= 0) {
                     invulnerable = false;
+                    invElement.textContent = "Escudo: Listo";
+                    invElement.classList.remove('active');
                 }
             }
         }
         
         // Activar invulnerabilidad
         function activateInvulnerability() {
-            if (!gameRunning) return;
+            if (!gameRunning || invulnerable) return;
             
             invulnerable = true;
-            invulnerableTime = 180; // 3 segundos a 60fps
+            invulnerableTime = 3000; // 3 segundos
+            invElement.textContent = "Escudo: Activado";
+            invElement.classList.add('active');
         }
         
-        // Actualizar puntuación
-        function updateScore() {
+        // Actualizar UI
+        function updateUI() {
             scoreElement.textContent = `Puntuación: ${score}`;
+            livesElement.textContent = `Vidas: ${lives}`;
         }
         
         // Game Over
@@ -406,15 +546,11 @@
         startButton.addEventListener('click', () => {
             startScreenElement.style.display = 'none';
             init();
-            // Generar el primer obstáculo después de un breve retraso
-            setTimeout(generateObstacle, 1000);
         });
         
         restartButton.addEventListener('click', () => {
             gameOverElement.style.display = 'none';
             init();
-            // Generar el primer obstáculo después de un breve retraso
-            setTimeout(generateObstacle, 1000);
         });
     </script>
 </body>
