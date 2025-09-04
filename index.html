@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis IAs Favoritas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -17,6 +18,33 @@
             color: #f0f8ff;
             min-height: 100vh;
             padding: 20px;
+        }
+        
+        .github-corner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .github-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffd700, #ffb700);
+            color: #000;
+            text-decoration: none;
+            font-size: 1.8rem;
+            border-bottom-left-radius: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: linear-gradient(135deg, #ffdf30, #ffc730);
+            transform: scale(1.05);
         }
         
         header {
@@ -53,7 +81,8 @@
         
         .ia-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 25px;
             justify-content: center;
             margin-top: 30px;
@@ -68,6 +97,10 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .ia-item:hover {
@@ -83,23 +116,24 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            width: 100%;
         }
         
         .ia-logo {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
             margin-bottom: 15px;
-            border-radius: 50%;
+            border-radius: 20px;
             background: rgba(255, 255, 255, 0.9);
-            padding: 12px;
+            padding: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .ia-name {
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-top: auto;
+            font-size: 1.2rem;
+            margin-top: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
@@ -111,10 +145,17 @@
             font-size: 0.9rem;
         }
         
+        @media (max-width: 1024px) {
+            .ia-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
             .ia-grid {
-                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                gap: 15px;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
             }
             
             h1 {
@@ -122,23 +163,36 @@
             }
             
             .ia-logo {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .github-link {
                 width: 70px;
                 height: 70px;
+                font-size: 1.5rem;
             }
         }
         
         @media (max-width: 480px) {
-            .ia-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
             h1 {
                 font-size: 1.8rem;
+            }
+            
+            .ia-logo {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="github-corner">
+        <a href="https://github.com/" target="_blank" class="github-link">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+    
     <header>
         <h1>Mis Herramientas de IA Favoritas</h1>
         <p class="subtitle">Una recopilación de las inteligencias artificiales que utilizo con frecuencia en mi día a día</p>
@@ -146,18 +200,50 @@
     
     <div class="container">
         <div class="ia-grid">
+            <!-- Deepseek -->
+            <div class="ia-item">
+                <a href="https://chat.deepseek.com/" target="_blank" class="ia-link">
+                    <img src="http://imgfz.com/i/qJWsHnf.jpeg" alt="Deepseek" class="ia-logo">
+                    <span class="ia-name">Deepseek</span>
+                </a>
+            </div>
+            
             <!-- Grok -->
             <div class="ia-item">
                 <a href="https://grok.com/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzAwYzk5ZCIvPjxwYXRoIGQ9Ik0zMCA0MCBMNDUgNjAgTDcwIDMwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+" alt="Grok AI" class="ia-logo">
+                    <img src="http://imgfz.com/i/cN5a7rt.webp" alt="Grok AI" class="ia-logo">
                     <span class="ia-name">Grok</span>
+                </a>
+            </div>
+            
+            <!-- ChatGPT -->
+            <div class="ia-item">
+                <a href="https://chat.openai.com/" target="_blank" class="ia-link">
+                    <img src="http://imgfz.com/i/CNId7On.png" alt="ChatGPT" class="ia-logo">
+                    <span class="ia-name">ChatGPT</span>
+                </a>
+            </div>
+            
+            <!-- Claude -->
+            <div class="ia-item">
+                <a href="https://claude.ai/" target="_blank" class="ia-link">
+                    <img src="http://imgfz.com/i/9bayosi.png" alt="Claude" class="ia-logo">
+                    <span class="ia-name">Claude</span>
+                </a>
+            </div>
+            
+            <!-- OpenRouter -->
+            <div class="ia-item">
+                <a href="https://openrouter.ai/chat?models=deepseek/deepseek-chat-v3-0324:free" target="_blank" class="ia-link">
+                    <img src="http://imgfz.com/i/djycp9O.jpeg" alt="OpenRouter" class="ia-logo">
+                    <span class="ia-name">OpenRouter</span>
                 </a>
             </div>
             
             <!-- Gemini -->
             <div class="ia-item">
                 <a href="https://gemini.google.com/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzE2ODFmZiIgcng9IjEwIi8+PHBvbHlnb24gcG9pbnRzPSI0MCwzMCA1MCw0MCA2MCwzMCIgZmlsbD0iI2ZmZiIvPjxsaW5lIHgxPSI0MCIgeTE9IjUwIiB4Mj0iNjAiIHkyPSI1MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMiLz48L3N2Zz4=" alt="Gemini AI" class="ia-logo">
+                    <img src="http://imgfz.com/i/vqDQJ6S.webp" alt="Gemini AI" class="ia-logo">
                     <span class="ia-name">Gemini</span>
                 </a>
             </div>
@@ -165,47 +251,15 @@
             <!-- PixAI -->
             <div class="ia-item">
                 <a href="https://pixai.art/es" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZmNjZhMCIvPjxwYXRoIGQ9Ik00MCAzNSBMNjAgMzUgTTQwIDQ1IEw2MCA0NSBNNDAgNTUgTDYwIDU1IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="PixAI" class="ia-logo">
+                    <img src="http://imgfz.com/i/K3gqheE.png" alt="PixAI" class="ia-logo">
                     <span class="ia-name">PixAI</span>
-                </a>
-            </div>
-            
-            <!-- ChatGPT -->
-            <div class="ia-item">
-                <a href="https://chat.openai.com/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzEwYjc4YiIvPjxwYXRoIGQ9Ik0zNSA0MCBMNDUgNDAgTDQ1IDYwIEwzNSA2MCBaIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTU1IDQwIEw2NSA0MCBMNjUgNjAgTDU1IDYwIFoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="ChatGPT" class="ia-logo">
-                    <span class="ia-name">ChatGPT</span>
-                </a>
-            </div>
-            
-            <!-- Deepseek -->
-            <div class="ia-item">
-                <a href="https://chat.deepseek.com/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNMjAgMjAgTDgwIDIwIEw4MCA4MCBMMjAgODAgWiIgZmlsbD0iIzAwNzVmYiIgcng9IjEwIi8+PHBhdGggZD0iTTM1IDQwIEw2NSA0MCBNMzUgNTAgTDY1IDUwIE0zNSA2MCBMNjUgNjAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt="Deepseek" class="ia-logo">
-                    <span class="ia-name">Deepseek</span>
-                </a>
-            </div>
-            
-            <!-- OpenRouter -->
-            <div class="ia-item">
-                <a href="https://openrouter.ai/chat?models=deepseek/deepseek-chat-v3-0324:free" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzYyMWVlZiIvPjxwYXRoIGQ9Ik00MCAzNSBMMzUgNDAgTDUwIDU1IEw2NSA0MCBMNjAgMzUgTDUwIDQ1IFoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="OpenRouter" class="ia-logo">
-                    <span class="ia-name">OpenRouter</span>
-                </a>
-            </div>
-            
-            <!-- Claude -->
-            <div class="ia-item">
-                <a href="https://claude.ai/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZmODAwMCIvPjxwYXRoIGQ9Ik0zNSA0MCBMMzUgNjAgTDUwIDcwIEw2NSA2MCBMNjUgNDAgTDUwIDMwIFoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="Claude" class="ia-logo">
-                    <span class="ia-name">Claude</span>
                 </a>
             </div>
             
             <!-- Blackbox -->
             <div class="ia-item">
                 <a href="https://blackbox.ai/" target="_blank" class="ia-link">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iIzIyMiIgcng9IjEwIi8+PHJlY3QgeD0iMzAiIHk9IjMwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiMwMDAiIHJ4PSI1Ii8+PC9zdmc+" alt="Blackbox" class="ia-logo">
+                    <img src="http://imgfz.com/i/LUlPEFf.jpeg" alt="Blackbox" class="ia-logo">
                     <span class="ia-name">Blackbox</span>
                 </a>
             </div>
