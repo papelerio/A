@@ -50,8 +50,8 @@
         header {
             text-align: center;
             padding: 40px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 1000px;
+            margin: 0 auto 40px;
         }
         
         h1 {
@@ -67,8 +67,8 @@
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
-            margin-bottom: 30px;
-            max-width: 600px;
+            margin-bottom: 10px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -79,91 +79,79 @@
             padding: 20px;
         }
         
-        .ia-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 25px;
-            justify-content: center;
-            margin-top: 30px;
+        .ia-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
         
         .ia-item {
+            display: flex;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 20px;
-            text-align: center;
+            padding: 25px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
             overflow: hidden;
-            cursor: pointer;
-            height: 250px;
         }
         
         .ia-item:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
             background: rgba(255, 255, 255, 0.15);
-            height: auto;
-            min-height: 250px;
         }
         
-        .ia-item:hover .ia-description {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 300px;
-        }
-        
-        .ia-link {
-            text-decoration: none;
-            color: inherit;
+        .ia-image {
+            flex: 0 0 150px;
+            margin-right: 25px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            width: 100%;
+            justify-content: center;
         }
         
         .ia-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             object-fit: contain;
-            margin-bottom: 15px;
-            border-radius: 20px;
+            border-radius: 15px;
             background: rgba(255, 255, 255, 0.9);
-            padding: 5px;
+            padding: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
         }
         
-        .ia-item:hover .ia-logo {
-            transform: scale(0.9);
+        .ia-content {
+            flex: 1;
+        }
+        
+        .ia-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
         .ia-name {
             font-weight: 600;
-            font-size: 1.2rem;
-            margin-top: 10px;
+            font-size: 1.5rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-right: 15px;
+        }
+        
+        .ia-link {
+            color: #92fe9d;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ia-link:hover {
+            color: #00c9ff;
+            transform: scale(1.1);
         }
         
         .ia-description {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            text-align: left;
-            width: 100%;
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 5px;
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
         .ia-description ul {
@@ -174,7 +162,7 @@
         .ia-description li {
             margin-bottom: 8px;
             position: relative;
-            padding-left: 15px;
+            padding-left: 20px;
         }
         
         .ia-description li:before {
@@ -182,36 +170,42 @@
             color: #92fe9d;
             position: absolute;
             left: 0;
+            font-size: 1.2rem;
         }
         
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 70px;
             padding: 30px;
             opacity: 0.7;
             font-size: 0.9rem;
         }
         
-        @media (max-width: 1024px) {
-            .ia-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(4, 1fr);
+        @media (max-width: 900px) {
+            .ia-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ia-image {
+                margin-right: 0;
+                margin-bottom: 20px;
+                flex: 0 0 auto;
+            }
+            
+            .ia-header {
+                justify-content: center;
             }
         }
         
         @media (max-width: 768px) {
-            .ia-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-            
             h1 {
                 font-size: 2.2rem;
             }
             
             .ia-logo {
-                width: 90px;
-                height: 90px;
+                width: 100px;
+                height: 100px;
             }
             
             .github-link {
@@ -220,12 +214,8 @@
                 font-size: 1.5rem;
             }
             
-            .ia-item {
-                height: 230px;
-            }
-            
-            .ia-item:hover {
-                min-height: 230px;
+            .ia-name {
+                font-size: 1.3rem;
             }
         }
         
@@ -240,11 +230,7 @@
             }
             
             .ia-item {
-                height: 220px;
-            }
-            
-            .ia-item:hover {
-                min-height: 220px;
+                padding: 20px;
             }
         }
     </style>
@@ -259,143 +245,199 @@
     <header>
         <h1>Mis Herramientas de IA Favoritas</h1>
         <p class="subtitle">Una recopilación de las inteligencias artificiales que utilizo con frecuencia en mi día a día</p>
-        <p class="subtitle">Pasa el cursor sobre cada tarjeta para ver mi opinión</p>
+        <p class="subtitle">Toda la información visible de inmediato, organizada en tarjetas horizontales</p>
     </header>
     
     <div class="container">
-        <div class="ia-grid">
+        <div class="ia-list">
             <!-- Deepseek -->
             <div class="ia-item">
-                <a href="https://chat.deepseek.com/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/qJWsHnf.jpeg" alt="Deepseek" class="ia-logo">
-                    <span class="ia-name">Deepseek</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>100% gratis (increible!)</li>
-                        <li>Muy inteligente y buena memoria</li>
-                        <li>Velocidad media (aceptable)</li>
-                        <li>Poca censura (pero tiene)</li>
-                        <li>Escanea documentos OCG</li>
-                        <li>Excelente codificador (9/10)</li>
-                        <li>Dialecto muy natural</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">Deepseek</h2>
+                        <a href="https://chat.deepseek.com/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>100% gratis (increible!)</li>
+                            <li>Muy inteligente y buena memoria</li>
+                            <li>Velocidad media (aceptable)</li>
+                            <li>Poca censura (pero tiene)</li>
+                            <li>Escanea documentos OCG</li>
+                            <li>Excelente codificador (9/10)</li>
+                            <li>Dialecto muy natural</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- Grok -->
             <div class="ia-item">
-                <a href="https://grok.com/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/cN5a7rt.webp" alt="Grok AI" class="ia-logo">
-                    <span class="ia-name">Grok</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>70% gratis (20 mensajes gratis cada 2 horas, muy generosos!)</li>
-                        <li>Excelente investigador</li>
-                        <li>Rápido y habla mucho!</li>
-                        <li>Buena memoria</li>
-                        <li>Visualizador de imágenes medianamente bueno e ilimitado</li>
-                        <li>Buen codificador (6/10)</li>
-                        <li>El dialecto humano (algo forzado, con el tiempo te das cuenta)</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">Grok</h2>
+                        <a href="https://grok.com/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>70% gratis (20 mensajes gratis cada 2 horas, muy generosos!)</li>
+                            <li>Excelente investigador</li>
+                            <li>Rápido y habla mucho!</li>
+                            <li>Buena memoria</li>
+                            <li>Visualizador de imágenes medianamente bueno e ilimitado</li>
+                            <li>Buen codificador (6/10)</li>
+                            <li>El dialecto humano (algo forzado, con el tiempo te das cuenta)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- ChatGPT -->
             <div class="ia-item">
-                <a href="https://chat.openai.com/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/CNId7On.png" alt="ChatGPT" class="ia-logo">
-                    <span class="ia-name">ChatGPT</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>40% gratis (unos tacaños, pocos mensajes cada 5 horas)</li>
-                        <li>Excelente adivinando recuerdos olvidados</li>
-                        <li>Excelente investigando</li>
-                        <li>Censura estricta</li>
-                        <li>Muy buen visualizador de imágenes (pero solo 3 por dia, muy tacaños)</li>
-                        <li>El mejor codificador hasta la fecha (9.5/10)</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">ChatGPT</h2>
+                        <a href="https://chat.openai.com/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>40% gratis (unos tacaños, pocos mensajes cada 5 horas)</li>
+                            <li>Excelente adivinando recuerdos olvidados</li>
+                            <li>Excelente investigando</li>
+                            <li>Censura estricta</li>
+                            <li>Muy buen visualizador de imágenes (pero solo 3 por dia, muy tacaños)</li>
+                            <li>El mejor codificador hasta la fecha (9.5/10)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- Claude -->
             <div class="ia-item">
-                <a href="https://claude.ai/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/9bayosi.png" alt="Claude" class="ia-logo">
-                    <span class="ia-name">Claude</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>50% gratis (igual de tacaños que chatgpt, pero más sencillos, tiempo de espera de 4 o 5 horas)</li>
-                        <li>Buenos codificando (7/10)</li>
-                        <li>Crean páginas web instantáneamente!</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">Claude</h2>
+                        <a href="https://claude.ai/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>50% gratis (igual de tacaños que chatgpt, pero más sencillos, tiempo de espera de 4 o 5 horas)</li>
+                            <li>Buenos codificando (7/10)</li>
+                            <li>Crean páginas web instantáneamente!</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- OpenRouter -->
             <div class="ia-item">
-                <a href="https://openrouter.ai/chat?room=orc-1757118479-daHePUiVfBCQFECciy9K" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/djycp9O.jpeg" alt="OpenRouter" class="ia-logo">
-                    <span class="ia-name">OpenRouter</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>Fácil de romper censura</li>
-                        <li>Múltiples IAs</li>
-                        <li>Muy potente</li>
-                        <li>Generosos con las versiones free (buena cantidad de mensajes dependiendo el modelo que uses)</li>
-                        <li>Recomendado solo usar deepseek 3.1</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">OpenRouter</h2>
+                        <a href="https://openrouter.ai/chat?room=orc-1757118479-daHePUiVfBCQFECciy9K" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>Fácil de romper censura</li>
+                            <li>Múltiples IAs</li>
+                            <li>Muy potente</li>
+                            <li>Generosos con las versiones free (buena cantidad de mensajes dependiendo el modelo que uses)</li>
+                            <li>Recomendado solo usar deepseek 3.1</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- Gemini -->
             <div class="ia-item">
-                <a href="https://gemini.google.com/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/vqDQJ6S.webp" alt="Gemini AI" class="ia-logo">
-                    <span class="ia-name">Gemini</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>Generosos con la versión free ilimitada!</li>
-                        <li>Algo menos inteligente pero decente</li>
-                        <li>Genera imágenes y logotipos increíblemente bien!</li>
-                        <li>Acepta archivos, imágenes, videos, pdf, y más, gratis!</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">Gemini</h2>
+                        <a href="https://gemini.google.com/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>Generosos con la versión free ilimitada!</li>
+                            <li>Algo menos inteligente pero decente</li>
+                            <li>Genera imágenes y logotipos increíblemente bien!</li>
+                            <li>Acepta archivos, imágenes, videos, pdf, y más, gratis!</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- PixAI -->
             <div class="ia-item">
-                <a href="https://pixai.art/es" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/K3gqheE.png" alt="PixAI" class="ia-logo">
-                    <span class="ia-name">PixAI</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>Generador de imágenes muy potente y muy personalizable</li>
-                        <li>Generosos con las versiones free</li>
-                        <li>10.000 puntos diarios (acumulables)</li>
-                        <li>15.000 puntos diarios extras realizando misiones (que duran 5-10 minutos, muy generosos)</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">PixAI</h2>
+                        <a href="https://pixai.art/es" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>Generador de imágenes muy potente y muy personalizable</li>
+                            <li>Generosos con las versiones free</li>
+                            <li>10.000 puntos diarios (acumulables)</li>
+                            <li>15.000 puntos diarios extras realizando misiones (que duran 5-10 minutos, muy generosos)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             
             <!-- Blackbox -->
             <div class="ia-item">
-                <a href="https://blackbox.ai/" target="_blank" class="ia-link">
+                <div class="ia-image">
                     <img src="http://imgfz.com/i/LUlPEFf.jpeg" alt="Blackbox" class="ia-logo">
-                    <span class="ia-name">Blackbox</span>
-                </a>
-                <div class="ia-description">
-                    <ul>
-                        <li>Programador sencillo (5/10)</li>
-                        <li>Ilimitado, pero no es tan potente</li>
-                        <li>Breve y responde directo!</li>
-                    </ul>
+                </div>
+                <div class="ia-content">
+                    <div class="ia-header">
+                        <h2 class="ia-name">Blackbox</h2>
+                        <a href="https://blackbox.ai/" target="_blank" class="ia-link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="ia-description">
+                        <ul>
+                            <li>Programador sencillo (5/10)</li>
+                            <li>Ilimitado, pero no es tan potente</li>
+                            <li>Breve y responde directo!</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
