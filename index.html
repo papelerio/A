@@ -92,6 +92,7 @@
             gap: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
         
         .admin-toggle:hover {
@@ -195,22 +196,24 @@
         }
         
         .ia-list {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
         
         .ia-item {
             display: flex;
+            flex-direction: column;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
             position: relative;
+            height: 100%;
         }
         
         .ia-item:hover {
@@ -220,44 +223,46 @@
         }
         
         .ia-image {
-            flex: 0 0 150px;
-            margin-right: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 15px;
         }
         
         .ia-logo {
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
-            border-radius: 15px;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.9);
-            padding: 8px;
+            padding: 6px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .ia-content {
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .ia-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            margin-bottom: 12px;
         }
         
         .ia-name {
             font-weight: 600;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            margin-right: 15px;
         }
         
         .ia-link {
             color: #92fe9d;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
         
         .ia-link:hover {
@@ -266,8 +271,9 @@
         }
         
         .ia-description {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
         }
         
         .ia-description ul {
@@ -276,9 +282,10 @@
         }
         
         .ia-description li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 18px;
+            font-size: 0.9rem;
         }
         
         .ia-description li:before {
@@ -286,29 +293,31 @@
             color: #92fe9d;
             position: absolute;
             left: 0;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         
         .ia-actions {
-            position: absolute;
-            top: 15px;
-            right: 15px;
             display: flex;
-            gap: 10px;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .action-btn {
             background: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         
         .action-btn:hover {
@@ -336,6 +345,19 @@
             text-align: center;
             padding: 40px;
             font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
         }
         
         .hidden {
@@ -343,25 +365,30 @@
         }
         
         @media (max-width: 900px) {
+            .ia-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
             .ia-item {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
             }
             
             .ia-image {
-                margin-right: 0;
-                margin-bottom: 20px;
+                margin-right: 20px;
+                margin-bottom: 0;
                 flex: 0 0 auto;
             }
             
-            .ia-header {
-                justify-content: center;
-            }
-            
             .ia-actions {
-                position: static;
-                justify-content: center;
-                margin-top: 15px;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+                justify-content: flex-end;
             }
         }
         
@@ -371,8 +398,8 @@
             }
             
             .ia-logo {
-                width: 100px;
-                height: 100px;
+                width: 70px;
+                height: 70px;
             }
             
             .github-link {
@@ -382,7 +409,7 @@
             }
             
             .ia-name {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .admin-toggle {
@@ -393,22 +420,46 @@
             }
         }
         
+        @media (max-width: 600px) {
+            .ia-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ia-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .ia-actions {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+        
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.8rem;
             }
             
             .ia-logo {
-                width: 80px;
-                height: 80px;
+                width: 60px;
+                height: 60px;
             }
             
             .ia-item {
-                padding: 20px;
+                padding: 15px;
             }
             
             .form-actions {
                 flex-direction: column;
+            }
+            
+            .container {
+                padding: 10px;
             }
         }
     </style>
@@ -544,7 +595,13 @@
             iaList.innerHTML = '';
             
             if (!iaData) {
-                iaList.innerHTML = '<div class="loading">No hay herramientas de IA guardadas. ¡Agrega la primera!</div>';
+                iaList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-robot"></i>
+                        <h3>No hay herramientas de IA guardadas</h3>
+                        <p>¡Agrega la primera herramienta usando el Panel de Administración!</p>
+                    </div>
+                `;
                 return;
             }
             
@@ -556,7 +613,7 @@
                 
                 iaItem.innerHTML = `
                     <div class="ia-image">
-                        <img src="${ia.logo}" alt="${ia.name}" class="ia-logo">
+                        <img src="${ia.logo}" alt="${ia.name}" class="ia-logo" onerror="this.src='https://via.placeholder.com/80/2c5364/ffffff?text=IA'">
                     </div>
                     <div class="ia-content">
                         <div class="ia-header">
@@ -570,14 +627,14 @@
                                 ${ia.features.map(feature => `<li>${feature}</li>`).join('')}
                             </ul>
                         </div>
-                    </div>
-                    <div class="ia-actions">
-                        <button class="action-btn edit-btn" data-id="${key}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete-btn" data-id="${key}">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <div class="ia-actions">
+                            <button class="action-btn edit-btn" data-id="${key}" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${key}" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
                 `;
                 
