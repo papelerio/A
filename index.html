@@ -677,11 +677,38 @@ Capacidad de aprendizaje"></textarea>
         let currentColumns = 2;
         let hideDescription = false;
 
+        // Cargar preferencias del localStorage al iniciar
+        function loadPreferences() {
+            const savedColumns = localStorage.getItem('iaColumns');
+            const savedHideDescription = localStorage.getItem('iaHideDescription');
+            
+            if (savedColumns) {
+                currentColumns = parseInt(savedColumns);
+                columnsSlider.value = currentColumns;
+                columnsValue.textContent = currentColumns;
+            }
+            
+            if (savedHideDescription) {
+                hideDescription = savedHideDescription === 'true';
+                toggleDescription.checked = hideDescription;
+            }
+            
+            updateColumns();
+            toggleDescriptionVisibility();
+        }
+
+        // Guardar preferencias en localStorage
+        function savePreferences() {
+            localStorage.setItem('iaColumns', currentColumns);
+            localStorage.setItem('iaHideDescription', hideDescription);
+        }
+
         // Función para actualizar columnas
         function updateColumns() {
             currentColumns = parseInt(columnsSlider.value);
             columnsValue.textContent = currentColumns;
             iaList.style.gridTemplateColumns = `repeat(${currentColumns}, 1fr)`;
+            savePreferences();
         }
 
         // Función para alternar descripción
@@ -691,6 +718,7 @@ Capacidad de aprendizaje"></textarea>
             descriptions.forEach(desc => {
                 desc.classList.toggle('hidden', hideDescription);
             });
+            savePreferences();
         }
 
         // Event listeners para controles
@@ -884,8 +912,8 @@ Capacidad de aprendizaje"></textarea>
         // Event listener para el botón de cancelar
         cancelBtn.addEventListener('click', resetForm);
 
-        // Inicializar controles
-        updateColumns();
+        // Inicializar controles y cargar preferencias
+        loadPreferences();
 
         // Cargar los datos cuando la página esté lista
         document.addEventListener('DOMContentLoaded', loadIAData);
