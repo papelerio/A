@@ -49,6 +49,36 @@
             transform: scale(1.05);
         }
         
+        .admin-access-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #ff7b00, #ff5500);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+            z-index: 999;
+            font-size: 0.9rem;
+        }
+        
+        .admin-access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+        
+        .admin-access-btn.admin-active {
+            background: linear-gradient(135deg, #00ff88, #00cc66);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+        
         header {
             text-align: center;
             padding: 40px 20px;
@@ -503,6 +533,77 @@
             margin-bottom: 20px;
             opacity: 0.5;
         }
+
+        /* Modal de contraseña */
+        #password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-modal-content {
+            background: linear-gradient(135deg, #0f2027, #203a43);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #ff7b00;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #2c5364;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .password-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .password-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-btn.primary {
+            background: #ff7b00;
+            color: white;
+        }
+
+        .password-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .password-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .password-error {
+            color: #ff416c;
+            margin-top: 10px;
+            display: none;
+            font-size: 14px;
+        }
         
         @media (max-width: 900px) {
             .controls {
@@ -513,6 +614,13 @@
             .control-group {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .admin-access-btn {
+                top: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 0.8rem;
             }
         }
         
@@ -546,10 +654,20 @@
             .admin-content {
                 padding: 20px;
             }
+
+            .admin-access-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Botón de acceso admin naranja -->
+    <button class="admin-access-btn" id="admin-access-btn">
+        <i class="fas fa-key"></i> Permisos de Admin
+    </button>
+    
     <div class="github-corner">
         <a href="https://github.com/" target="_blank" class="github-link">
             <i class="fab fa-github"></i>
@@ -576,7 +694,7 @@
                 </label>
             </div>
             
-            <button class="admin-toggle" id="admin-toggle">
+            <button class="admin-toggle" id="admin-toggle" style="display: none;">
                 <i class="fas fa-cogs"></i> Panel de Administración
             </button>
         </div>
@@ -587,6 +705,32 @@
             <div class="loading">
                 <i class="fas fa-spinner fa-spin"></i> Cargando herramientas de IA...
             </div>
+        </div>
+    </div>
+    
+    <!-- Modal de contraseña -->
+    <div id="password-modal">
+        <div class="password-modal-content">
+            <h3 style="color: #ff7b00; margin-bottom: 20px;">
+                <i class="fas fa-lock"></i> Acceso de Administrador
+            </h3>
+            <p style="margin-bottom: 20px; opacity: 0.8;">
+                Ingresa la contraseña para activar las funciones de administración
+            </p>
+            <input type="password" id="admin-password-input" 
+                   class="password-input"
+                   placeholder="Contraseña de administración">
+            <div class="password-buttons">
+                <button class="password-btn primary" onclick="verifyAdminAccess()">
+                    <i class="fas fa-check"></i> Verificar
+                </button>
+                <button class="password-btn secondary" onclick="closePasswordModal()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+            <p id="password-error" class="password-error">
+                Contraseña incorrecta
+            </p>
         </div>
     </div>
     
@@ -656,6 +800,7 @@ Capacidad de aprendizaje"></textarea>
         const iaRef = database.ref('ia-tools');
 
         // Elementos del DOM
+        const adminAccessBtn = document.getElementById('admin-access-btn');
         const adminToggle = document.getElementById('admin-toggle');
         const adminScreen = document.getElementById('admin-screen');
         const closeAdmin = document.getElementById('close-admin');
@@ -666,21 +811,24 @@ Capacidad de aprendizaje"></textarea>
         const iaList = document.getElementById('ia-list');
         const submitBtn = document.getElementById('submit-btn');
         const cancelBtn = document.getElementById('cancel-btn');
-        const itemIdInput = document.getElementById('item-id');
-        const nameInput = document.getElementById('name');
-        const logoInput = document.getElementById('logo');
-        const linkInput = document.getElementById('link');
-        const featuresInput = document.getElementById('features');
+        const passwordModal = document.getElementById('password-modal');
+        const passwordInput = document.getElementById('admin-password-input');
+        const passwordError = document.getElementById('password-error');
 
         // Estado
         let editingItemId = null;
         let currentColumns = 2;
         let hideDescription = false;
+        let isAdminActive = false;
+
+        // Contraseña en base64: "oriente14"
+        const ADMIN_PASSWORD_BASE64 = "b3JpZW50ZTE0";
 
         // Cargar preferencias del localStorage al iniciar
         function loadPreferences() {
             const savedColumns = localStorage.getItem('iaColumns');
             const savedHideDescription = localStorage.getItem('iaHideDescription');
+            const savedAdmin = localStorage.getItem('adminActive');
             
             if (savedColumns) {
                 currentColumns = parseInt(savedColumns);
@@ -691,6 +839,10 @@ Capacidad de aprendizaje"></textarea>
             if (savedHideDescription) {
                 hideDescription = savedHideDescription === 'true';
                 toggleDescription.checked = hideDescription;
+            }
+
+            if (savedAdmin === 'true') {
+                activateAdminMode();
             }
             
             updateColumns();
@@ -721,12 +873,66 @@ Capacidad de aprendizaje"></textarea>
             savePreferences();
         }
 
+        // Mostrar modal de contraseña
+        function showPasswordModal() {
+            passwordModal.style.display = 'flex';
+            passwordInput.value = '';
+            passwordError.style.display = 'none';
+            passwordInput.focus();
+        }
+
+        // Cerrar modal de contraseña
+        function closePasswordModal() {
+            passwordModal.style.display = 'none';
+        }
+
+        // Verificar acceso de administrador
+        function verifyAdminAccess() {
+            const input = passwordInput.value;
+            
+            // Decodificar la contraseña base64 y comparar
+            const realPassword = atob(ADMIN_PASSWORD_BASE64);
+            
+            if (input === realPassword) {
+                activateAdminMode();
+                closePasswordModal();
+                localStorage.setItem('adminActive', 'true');
+            } else {
+                passwordError.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Activar modo administrador
+        function activateAdminMode() {
+            isAdminActive = true;
+            adminAccessBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin Activo';
+            adminAccessBtn.classList.add('admin-active');
+            adminToggle.style.display = 'flex';
+            
+            // Recargar los datos para mostrar botones de edición
+            loadIAData();
+        }
+
         // Event listeners para controles
         columnsSlider.addEventListener('input', updateColumns);
         toggleDescription.addEventListener('change', toggleDescriptionVisibility);
+        adminAccessBtn.addEventListener('click', showPasswordModal);
+
+        // Permitir Enter en el input de contraseña
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyAdminAccess();
+            }
+        });
 
         // Función para abrir panel de administración
         function openAdminScreen() {
+            if (!isAdminActive) {
+                showPasswordModal();
+                return;
+            }
             adminScreen.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -744,8 +950,13 @@ Capacidad de aprendizaje"></textarea>
 
         // Cerrar con ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && adminScreen.classList.contains('active')) {
-                closeAdminScreen();
+            if (e.key === 'Escape') {
+                if (adminScreen.classList.contains('active')) {
+                    closeAdminScreen();
+                }
+                if (passwordModal.style.display === 'flex') {
+                    closePasswordModal();
+                }
             }
         });
 
@@ -778,6 +989,18 @@ Capacidad de aprendizaje"></textarea>
                 iaItem.className = 'ia-item';
                 iaItem.setAttribute('data-id', key);
                 
+                // Mostrar botones de acción solo si es admin
+                const actionsHTML = isAdminActive ? `
+                    <div class="ia-actions">
+                        <button class="action-btn edit-btn" data-id="${key}" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="${key}" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                ` : '';
+                
                 iaItem.innerHTML = `
                     <div class="ia-image">
                         <img src="${ia.logo}" alt="${ia.name}" class="ia-logo" onerror="this.src='https://via.placeholder.com/80/2c5364/ffffff?text=IA'">
@@ -794,46 +1017,46 @@ Capacidad de aprendizaje"></textarea>
                                 ${ia.features.map(feature => `<li>${feature}</li>`).join('')}
                             </ul>
                         </div>
-                        <div class="ia-actions">
-                            <button class="action-btn edit-btn" data-id="${key}" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn delete-btn" data-id="${key}" title="Eliminar">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
+                        ${actionsHTML}
                     </div>
                 `;
                 
                 iaList.appendChild(iaItem);
             });
             
-            // Agregar event listeners para los botones de edición y eliminación
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = btn.getAttribute('data-id');
-                    editIA(id);
+            // Agregar event listeners para los botones de edición y eliminación solo si es admin
+            if (isAdminActive) {
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        editIA(id);
+                    });
                 });
-            });
-            
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = btn.getAttribute('data-id');
-                    deleteIA(id);
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        deleteIA(id);
+                    });
                 });
-            });
+            }
         }
 
         // Función para agregar o actualizar una IA
         iaForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const name = nameInput.value;
-            const logo = logoInput.value;
-            const link = linkInput.value;
-            const features = featuresInput.value.split('\n').filter(f => f.trim() !== '');
+            if (!isAdminActive) {
+                alert('Necesitas permisos de administrador para realizar esta acción');
+                return;
+            }
+            
+            const name = document.getElementById('name').value;
+            const logo = document.getElementById('logo').value;
+            const link = document.getElementById('link').value;
+            const features = document.getElementById('features').value.split('\n').filter(f => f.trim() !== '');
             
             const iaData = {
                 name,
@@ -869,20 +1092,24 @@ Capacidad de aprendizaje"></textarea>
 
         // Función para editar una IA
         function editIA(id) {
+            if (!isAdminActive) {
+                showPasswordModal();
+                return;
+            }
+            
             iaRef.child(id).once('value', (snapshot) => {
                 const ia = snapshot.val();
                 
                 if (ia) {
-                    nameInput.value = ia.name;
-                    logoInput.value = ia.logo;
-                    linkInput.value = ia.link;
-                    featuresInput.value = ia.features.join('\n');
+                    document.getElementById('name').value = ia.name;
+                    document.getElementById('logo').value = ia.logo;
+                    document.getElementById('link').value = ia.link;
+                    document.getElementById('features').value = ia.features.join('\n');
                     
                     editingItemId = id;
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Actualizar IA';
                     cancelBtn.style.display = 'flex';
                     
-                    // Abrir el panel automáticamente al editar
                     openAdminScreen();
                 }
             });
@@ -890,6 +1117,11 @@ Capacidad de aprendizaje"></textarea>
 
         // Función para eliminar una IA
         function deleteIA(id) {
+            if (!isAdminActive) {
+                showPasswordModal();
+                return;
+            }
+            
             if (confirm('¿Estás seguro de que quieres eliminar esta IA?')) {
                 iaRef.child(id).remove()
                     .then(() => {
