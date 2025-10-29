@@ -14,21 +14,21 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+       
         body {
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #f0f8ff;
             min-height: 100vh;
             padding: 20px;
         }
-        
+       
         .github-corner {
             position: absolute;
             top: 0;
             right: 0;
             z-index: 100;
         }
-        
+       
         .github-link {
             display: flex;
             align-items: center;
@@ -43,12 +43,12 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
-        
+       
         .github-link:hover {
             background: linear-gradient(135deg, #ffdf30, #ffc730);
             transform: scale(1.05);
         }
-        
+       
         .admin-access-btn {
             position: fixed;
             top: 20px;
@@ -68,17 +68,17 @@
             z-index: 999;
             font-size: 0.9rem;
         }
-        
+       
         .admin-access-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
         }
-        
+       
         .admin-access-btn.admin-active {
             background: linear-gradient(135deg, #00ff88, #00cc66);
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
         }
-        
+       
         header {
             text-align: center;
             padding: 40px 20px;
@@ -86,7 +86,7 @@
             margin: 0 auto 40px;
             position: relative;
         }
-        
+       
         h1 {
             font-size: 2.8rem;
             margin-bottom: 15px;
@@ -96,7 +96,7 @@
             color: transparent;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-        
+       
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
@@ -105,7 +105,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+       
         .controls {
             display: flex;
             justify-content: center;
@@ -114,7 +114,7 @@
             margin: 30px 0;
             flex-wrap: wrap;
         }
-        
+       
         .control-group {
             display: flex;
             align-items: center;
@@ -124,12 +124,12 @@
             border-radius: 12px;
             backdrop-filter: blur(10px);
         }
-        
+       
         .control-label {
             font-weight: 600;
             white-space: nowrap;
         }
-        
+       
         .columns-slider {
             width: 150px;
             height: 8px;
@@ -138,7 +138,7 @@
             border-radius: 4px;
             outline: none;
         }
-        
+       
         .columns-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 20px;
@@ -148,27 +148,27 @@
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-        
+       
         .columns-value {
             font-weight: 600;
             color: #92fe9d;
             min-width: 30px;
             text-align: center;
         }
-        
+       
         .toggle-switch {
             position: relative;
             display: inline-block;
             width: 60px;
             height: 30px;
         }
-        
+       
         .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-        
+       
         .toggle-slider {
             position: absolute;
             cursor: pointer;
@@ -180,7 +180,7 @@
             transition: .4s;
             border-radius: 34px;
         }
-        
+       
         .toggle-slider:before {
             position: absolute;
             content: "";
@@ -192,15 +192,15 @@
             transition: .4s;
             border-radius: 50%;
         }
-        
+       
         input:checked + .toggle-slider {
             background: linear-gradient(90deg, #00c9ff, #92fe9d);
         }
-        
+       
         input:checked + .toggle-slider:before {
             transform: translateX(30px);
         }
-        
+       
         .admin-toggle {
             background: linear-gradient(90deg, #00c9ff, #92fe9d);
             color: #0f2027;
@@ -216,24 +216,24 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             font-size: 1rem;
         }
-        
+       
         .admin-toggle:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-        
+       
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+       
         .ia-list {
             display: grid;
             gap: 25px;
             transition: grid-template-columns 0.3s ease;
         }
-        
+       
         .ia-item {
             display: flex;
             flex-direction: column;
@@ -248,20 +248,20 @@
             position: relative;
             height: 100%;
         }
-        
+       
         .ia-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
             background: rgba(255, 255, 255, 0.15);
         }
-        
+       
         .ia-image {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 15px;
         }
-        
+       
         .ia-logo {
             width: 80px;
             height: 80px;
@@ -271,61 +271,61 @@
             padding: 6px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+       
         .ia-content {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-        
+       
         .ia-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 12px;
         }
-        
+       
         .ia-name {
             font-weight: 600;
             font-size: 1.3rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+       
         .ia-link {
             color: #92fe9d;
             font-size: 1.1rem;
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-        
+       
         .ia-link:hover {
             color: #00c9ff;
             transform: scale(1.1);
         }
-        
+       
         .ia-description {
             font-size: 0.95rem;
             line-height: 1.5;
             flex: 1;
             transition: all 0.3s ease;
         }
-        
+       
         .ia-description.hidden {
             display: none;
         }
-        
+       
         .ia-description ul {
             list-style-type: none;
             padding-left: 5px;
         }
-        
+       
         .ia-description li {
             margin-bottom: 6px;
             position: relative;
             padding-left: 18px;
             font-size: 0.9rem;
         }
-        
+       
         .ia-description li:before {
             content: "•";
             color: #92fe9d;
@@ -333,7 +333,7 @@
             left: 0;
             font-size: 1rem;
         }
-        
+       
         .ia-actions {
             display: flex;
             justify-content: flex-end;
@@ -342,7 +342,7 @@
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+       
         .action-btn {
             background: rgba(0, 0, 0, 0.5);
             color: white;
@@ -357,20 +357,20 @@
             transition: all 0.3s ease;
             font-size: 0.9rem;
         }
-        
+       
         .action-btn:hover {
             transform: scale(1.1);
             background: rgba(0, 0, 0, 0.7);
         }
-        
+       
         .edit-btn:hover {
             color: #00c9ff;
         }
-        
+       
         .delete-btn:hover {
             color: #ff416c;
         }
-        
+       
         /* Pantalla de Administración */
         .admin-screen {
             position: fixed;
@@ -384,11 +384,11 @@
             overflow-y: auto;
             display: none;
         }
-        
+       
         .admin-screen.active {
             display: block;
         }
-        
+       
         .admin-header {
             display: flex;
             justify-content: space-between;
@@ -397,7 +397,7 @@
             padding-bottom: 20px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
-        
+       
         .admin-title {
             font-size: 2.5rem;
             background: linear-gradient(90deg, #00c9ff, #92fe9d);
@@ -405,7 +405,7 @@
             background-clip: text;
             color: transparent;
         }
-        
+       
         .close-admin {
             background: linear-gradient(90deg, #ff416c, #ff4b2b);
             color: white;
@@ -419,12 +419,12 @@
             gap: 8px;
             transition: all 0.3s ease;
         }
-        
+       
         .close-admin:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+       
         .admin-content {
             max-width: 800px;
             margin: 0 auto;
@@ -434,18 +434,18 @@
             padding: 40px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
-        
+       
         .form-group {
             margin-bottom: 25px;
         }
-        
+       
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 1.1rem;
         }
-        
+       
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 15px;
@@ -456,24 +456,24 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-        
+       
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #00c9ff;
             box-shadow: 0 0 0 2px rgba(0, 201, 255, 0.2);
         }
-        
+       
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
         }
-        
+       
         .form-actions {
             display: flex;
             gap: 15px;
             margin-top: 30px;
         }
-        
+       
         .btn {
             padding: 15px 25px;
             border: none;
@@ -486,27 +486,27 @@
             gap: 10px;
             font-size: 1rem;
         }
-        
+       
         .btn-primary {
             background: linear-gradient(90deg, #00c9ff, #92fe9d);
             color: #0f2027;
         }
-        
+       
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: white;
         }
-        
+       
         .btn-danger {
             background: linear-gradient(90deg, #ff416c, #ff4b2b);
             color: white;
         }
-        
+       
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-        
+       
         footer {
             text-align: center;
             margin-top: 70px;
@@ -514,26 +514,67 @@
             opacity: 0.7;
             font-size: 0.9rem;
         }
-        
+       
         .loading {
             text-align: center;
             padding: 40px;
             font-size: 1.2rem;
             grid-column: 1 / -1;
         }
-        
+       
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             grid-column: 1 / -1;
         }
-        
+       
         .empty-state i {
             font-size: 3rem;
             margin-bottom: 20px;
             opacity: 0.5;
         }
-
+        
+        .error-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+            color: #ff416c;
+        }
+        
+        .error-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .connection-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .connection-status.connected {
+            background: rgba(0, 255, 136, 0.2);
+            color: #92fe9d;
+            border: 1px solid #92fe9d;
+        }
+        
+        .connection-status.error {
+            background: rgba(255, 65, 108, 0.2);
+            color: #ff416c;
+            border: 1px solid #ff416c;
+        }
+        
+        .connection-status.connecting {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid #ffc107;
+        }
         /* Modal de contraseña */
         #password-modal {
             display: none;
@@ -547,7 +588,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .password-modal-content {
             background: linear-gradient(135deg, #0f2027, #203a43);
             padding: 30px;
@@ -557,7 +597,6 @@
             width: 90%;
             text-align: center;
         }
-
         .password-input {
             width: 100%;
             padding: 12px;
@@ -568,12 +607,10 @@
             color: white;
             font-size: 1rem;
         }
-
         .password-buttons {
             display: flex;
             gap: 10px;
         }
-
         .password-btn {
             flex: 1;
             padding: 12px;
@@ -583,39 +620,34 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .password-btn.primary {
             background: #ff7b00;
             color: white;
         }
-
         .password-btn.secondary {
             background: #6c757d;
             color: white;
         }
-
         .password-btn:hover {
             transform: translateY(-2px);
         }
-
         .password-error {
             color: #ff416c;
             margin-top: 10px;
             display: none;
             font-size: 14px;
         }
-        
+       
         @media (max-width: 900px) {
             .controls {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+           
             .control-group {
                 width: 100%;
                 justify-content: center;
             }
-
             .admin-access-btn {
                 top: 10px;
                 left: 10px;
@@ -623,38 +655,37 @@
                 font-size: 0.8rem;
             }
         }
-        
+       
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
             }
-            
+           
             .admin-screen {
                 padding: 20px;
             }
-            
+           
             .admin-content {
                 padding: 25px;
             }
-            
+           
             .admin-title {
                 font-size: 2rem;
             }
         }
-        
+       
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.8rem;
             }
-            
+           
             .form-actions {
                 flex-direction: column;
             }
-            
+           
             .admin-content {
                 padding: 20px;
             }
-
             .admin-access-btn {
                 padding: 8px 12px;
                 font-size: 0.7rem;
@@ -668,24 +699,29 @@
         <i class="fas fa-key"></i> Permisos de Admin
     </button>
     
+    <!-- Indicador de estado de conexión -->
+    <div class="connection-status connecting" id="connection-status">
+        <i class="fas fa-sync fa-spin"></i> Conectando a Firebase...
+    </div>
+   
     <div class="github-corner">
         <a href="https://github.com/" target="_blank" class="github-link">
             <i class="fab fa-github"></i>
         </a>
     </div>
-    
+   
     <header>
         <h1>Mis Herramientas de IA Favoritas</h1>
         <p class="subtitle">Una recopilación de las inteligencias artificiales que utilizo con frecuencia en mi día a día</p>
         <p class="subtitle">Ahora con Firebase para gestionar tus propios datos</p>
-        
+       
         <div class="controls">
             <div class="control-group">
                 <span class="control-label">Columnas:</span>
                 <input type="range" min="1" max="4" value="2" class="columns-slider" id="columns-slider">
                 <span class="columns-value" id="columns-value">2</span>
             </div>
-            
+           
             <div class="control-group">
                 <span class="control-label">Ocultar descripción:</span>
                 <label class="toggle-switch">
@@ -693,13 +729,13 @@
                     <span class="toggle-slider"></span>
                 </label>
             </div>
-            
+           
             <button class="admin-toggle" id="admin-toggle" style="display: none;">
                 <i class="fas fa-cogs"></i> Panel de Administración
             </button>
         </div>
     </header>
-    
+   
     <div class="container">
         <div class="ia-list" id="ia-list">
             <div class="loading">
@@ -707,7 +743,7 @@
             </div>
         </div>
     </div>
-    
+   
     <!-- Modal de contraseña -->
     <div id="password-modal">
         <div class="password-modal-content">
@@ -717,7 +753,7 @@
             <p style="margin-bottom: 20px; opacity: 0.8;">
                 Ingresa la contraseña para activar las funciones de administración
             </p>
-            <input type="password" id="admin-password-input" 
+            <input type="password" id="admin-password-input"
                    class="password-input"
                    placeholder="Contraseña de administración">
             <div class="password-buttons">
@@ -733,7 +769,7 @@
             </p>
         </div>
     </div>
-    
+   
     <!-- Pantalla de Administración -->
     <div class="admin-screen" id="admin-screen">
         <div class="admin-header">
@@ -742,7 +778,7 @@
                 <i class="fas fa-times"></i> Cerrar
             </button>
         </div>
-        
+       
         <div class="admin-content">
             <form id="ia-form">
                 <input type="hidden" id="item-id">
@@ -775,30 +811,27 @@ Capacidad de aprendizaje"></textarea>
             </form>
         </div>
     </div>
-    
+   
     <footer>
         <p>Recopilación de herramientas de IA | Con Firebase | Actualizado en 2025</p>
     </footer>
-
     <script>
-        // Configuración de Firebase
+        // Configuración de Firebase - NUEVA CONFIGURACIÓN
         const firebaseConfig = {
-            apiKey: "AIzaSyA3fUC0W16D-xQxk-NRyX-Hl5uhkg_wO3c",
-            authDomain: "repositoia.firebaseapp.com",
-            databaseURL: "https://repositoia-default-rtdb.firebaseio.com",
-            projectId: "repositoia",
-            storageBucket: "repositoia.firebasestorage.app",
-            messagingSenderId: "180873573579",
-            appId: "1:180873573579:web:fb93deff0e28e53f77d74e"
+            apiKey: "AIzaSyBGz_Edp8SaTQsDGlfFqi8BU89X1tIJjrg",
+            authDomain: "ias-que-uso.firebaseapp.com",
+            databaseURL: "https://ias-que-uso-default-rtdb.firebaseio.com",
+            projectId: "ias-que-uso",
+            storageBucket: "ias-que-uso.firebasestorage.app",
+            messagingSenderId: "1035340853650",
+            appId: "1:1035340853650:web:8ff0ac0e5277038349514b"
         };
 
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-
         // Referencia a la base de datos
         const iaRef = database.ref('ia-tools');
-
         // Elementos del DOM
         const adminAccessBtn = document.getElementById('admin-access-btn');
         const adminToggle = document.getElementById('admin-toggle');
@@ -814,46 +847,58 @@ Capacidad de aprendizaje"></textarea>
         const passwordModal = document.getElementById('password-modal');
         const passwordInput = document.getElementById('admin-password-input');
         const passwordError = document.getElementById('password-error');
-
+        const connectionStatus = document.getElementById('connection-status');
+        
         // Estado
         let editingItemId = null;
         let currentColumns = 2;
         let hideDescription = false;
         let isAdminActive = false;
-
         const ADMIN_PASSWORD_BASE64 = "b3JpZW50ZTE0";
-
+        
+        // Función para actualizar el estado de conexión
+        function updateConnectionStatus(status, message) {
+            connectionStatus.className = 'connection-status ' + status;
+            connectionStatus.innerHTML = `<i class="fas fa-${getStatusIcon(status)}"></i> ${message}`;
+        }
+        
+        function getStatusIcon(status) {
+            switch(status) {
+                case 'connected': return 'check-circle';
+                case 'error': return 'exclamation-triangle';
+                case 'connecting': return 'sync fa-spin';
+                default: return 'question-circle';
+            }
+        }
+        
         // Cargar preferencias del localStorage al iniciar
         function loadPreferences() {
             const savedColumns = localStorage.getItem('iaColumns');
             const savedHideDescription = localStorage.getItem('iaHideDescription');
             const savedAdmin = localStorage.getItem('adminActive');
-            
+           
             if (savedColumns) {
                 currentColumns = parseInt(savedColumns);
                 columnsSlider.value = currentColumns;
                 columnsValue.textContent = currentColumns;
             }
-            
+           
             if (savedHideDescription) {
                 hideDescription = savedHideDescription === 'true';
                 toggleDescription.checked = hideDescription;
             }
-
             if (savedAdmin === 'true') {
                 activateAdminMode();
             }
-            
+           
             updateColumns();
             toggleDescriptionVisibility();
         }
-
         // Guardar preferencias en localStorage
         function savePreferences() {
             localStorage.setItem('iaColumns', currentColumns);
             localStorage.setItem('iaHideDescription', hideDescription);
         }
-
         // Función para actualizar columnas
         function updateColumns() {
             currentColumns = parseInt(columnsSlider.value);
@@ -861,7 +906,6 @@ Capacidad de aprendizaje"></textarea>
             iaList.style.gridTemplateColumns = `repeat(${currentColumns}, 1fr)`;
             savePreferences();
         }
-
         // Función para alternar descripción
         function toggleDescriptionVisibility() {
             hideDescription = toggleDescription.checked;
@@ -871,7 +915,6 @@ Capacidad de aprendizaje"></textarea>
             });
             savePreferences();
         }
-
         // Mostrar modal de contraseña
         function showPasswordModal() {
             passwordModal.style.display = 'flex';
@@ -879,19 +922,17 @@ Capacidad de aprendizaje"></textarea>
             passwordError.style.display = 'none';
             passwordInput.focus();
         }
-
         // Cerrar modal de contraseña
         function closePasswordModal() {
             passwordModal.style.display = 'none';
         }
-
         // Verificar acceso de administrador
         function verifyAdminAccess() {
             const input = passwordInput.value;
-            
+           
             // Decodificar la contraseña base64 y comparar
             const realPassword = atob(ADMIN_PASSWORD_BASE64);
-            
+           
             if (input === realPassword) {
                 activateAdminMode();
                 closePasswordModal();
@@ -902,30 +943,26 @@ Capacidad de aprendizaje"></textarea>
                 passwordInput.focus();
             }
         }
-
         // Activar modo administrador
         function activateAdminMode() {
             isAdminActive = true;
             adminAccessBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin Activo';
             adminAccessBtn.classList.add('admin-active');
             adminToggle.style.display = 'flex';
-            
+           
             // Recargar los datos para mostrar botones de edición
             loadIAData();
         }
-
         // Event listeners para controles
         columnsSlider.addEventListener('input', updateColumns);
         toggleDescription.addEventListener('change', toggleDescriptionVisibility);
         adminAccessBtn.addEventListener('click', showPasswordModal);
-
         // Permitir Enter en el input de contraseña
         passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 verifyAdminAccess();
             }
         });
-
         // Función para abrir panel de administración
         function openAdminScreen() {
             if (!isAdminActive) {
@@ -935,18 +972,15 @@ Capacidad de aprendizaje"></textarea>
             adminScreen.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         // Función para cerrar panel de administración
         function closeAdminScreen() {
             adminScreen.classList.remove('active');
             document.body.style.overflow = 'auto';
             resetForm();
         }
-
         // Event listeners para panel de administración
         adminToggle.addEventListener('click', openAdminScreen);
         closeAdmin.addEventListener('click', closeAdminScreen);
-
         // Cerrar con ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -958,19 +992,48 @@ Capacidad de aprendizaje"></textarea>
                 }
             }
         });
-
         // Función para cargar y mostrar los datos de Firebase
         function loadIAData() {
+            updateConnectionStatus('connecting', 'Conectando a Firebase...');
+            
+            // Configurar timeout para detectar problemas de conexión
+            const connectionTimeout = setTimeout(() => {
+                updateConnectionStatus('error', 'Error de conexión. Verifica tu internet.');
+                showErrorState('No se pudo conectar a la base de datos. Verifica tu conexión a internet.');
+            }, 10000);
+            
             iaRef.on('value', (snapshot) => {
+                clearTimeout(connectionTimeout);
+                updateConnectionStatus('connected', 'Conectado a Firebase');
+                
                 const iaData = snapshot.val();
                 displayIAData(iaData);
+            }, (error) => {
+                clearTimeout(connectionTimeout);
+                updateConnectionStatus('error', 'Error al cargar datos');
+                console.error('Error al cargar datos:', error);
+                showErrorState('Error al cargar los datos. Verifica la configuración de Firebase.');
             });
         }
-
+        
+        // Función para mostrar estado de error
+        function showErrorState(message) {
+            iaList.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error de conexión</h3>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" onclick="loadIAData()" style="margin-top: 20px;">
+                        <i class="fas fa-redo"></i> Reintentar
+                    </button>
+                </div>
+            `;
+        }
+        
         // Función para mostrar los datos en la página
         function displayIAData(iaData) {
             iaList.innerHTML = '';
-            
+           
             if (!iaData) {
                 iaList.innerHTML = `
                     <div class="empty-state">
@@ -981,13 +1044,19 @@ Capacidad de aprendizaje"></textarea>
                 `;
                 return;
             }
-            
+           
             Object.keys(iaData).forEach(key => {
                 const ia = iaData[key];
+                // Verificar que la IA tenga la estructura esperada
+                if (!ia || !ia.name || !ia.features) {
+                    console.warn('Estructura de datos incorrecta para:', key, ia);
+                    return;
+                }
+                
                 const iaItem = document.createElement('div');
                 iaItem.className = 'ia-item';
                 iaItem.setAttribute('data-id', key);
-                
+               
                 // Mostrar botones de acción solo si es admin
                 const actionsHTML = isAdminActive ? `
                     <div class="ia-actions">
@@ -999,30 +1068,33 @@ Capacidad de aprendizaje"></textarea>
                         </button>
                     </div>
                 ` : '';
-                
+               
+                // Asegurar que features sea un array
+                const featuresArray = Array.isArray(ia.features) ? ia.features : [];
+               
                 iaItem.innerHTML = `
                     <div class="ia-image">
-                        <img src="${ia.logo}" alt="${ia.name}" class="ia-logo" onerror="this.src='https://via.placeholder.com/80/2c5364/ffffff?text=IA'">
+                        <img src="${ia.logo || 'https://via.placeholder.com/80/2c5364/ffffff?text=IA'}" alt="${ia.name}" class="ia-logo" onerror="this.src='https://via.placeholder.com/80/2c5364/ffffff?text=IA'">
                     </div>
                     <div class="ia-content">
                         <div class="ia-header">
                             <h2 class="ia-name">${ia.name}</h2>
-                            <a href="${ia.link}" target="_blank" class="ia-link">
+                            <a href="${ia.link || '#'}" target="_blank" class="ia-link">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
                         </div>
                         <div class="ia-description ${hideDescription ? 'hidden' : ''}">
                             <ul>
-                                ${ia.features.map(feature => `<li>${feature}</li>`).join('')}
+                                ${featuresArray.map(feature => `<li>${feature}</li>`).join('')}
                             </ul>
                         </div>
                         ${actionsHTML}
                     </div>
                 `;
-                
+               
                 iaList.appendChild(iaItem);
             });
-            
+           
             // Agregar event listeners para los botones de edición y eliminación solo si es admin
             if (isAdminActive) {
                 document.querySelectorAll('.edit-btn').forEach(btn => {
@@ -1032,7 +1104,7 @@ Capacidad de aprendizaje"></textarea>
                         editIA(id);
                     });
                 });
-                
+               
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -1042,28 +1114,27 @@ Capacidad de aprendizaje"></textarea>
                 });
             }
         }
-
         // Función para agregar o actualizar una IA
         iaForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+           
             if (!isAdminActive) {
                 alert('Necesitas permisos de administrador para realizar esta acción');
                 return;
             }
-            
+           
             const name = document.getElementById('name').value;
             const logo = document.getElementById('logo').value;
             const link = document.getElementById('link').value;
             const features = document.getElementById('features').value.split('\n').filter(f => f.trim() !== '');
-            
+           
             const iaData = {
                 name,
                 logo,
                 link,
                 features
             };
-            
+           
             if (editingItemId) {
                 // Actualizar elemento existente
                 iaRef.child(editingItemId).update(iaData)
@@ -1074,6 +1145,7 @@ Capacidad de aprendizaje"></textarea>
                     })
                     .catch(error => {
                         console.error('Error al actualizar la IA:', error);
+                        alert('Error al actualizar la IA: ' + error.message);
                     });
             } else {
                 // Agregar nuevo elemento
@@ -1085,42 +1157,41 @@ Capacidad de aprendizaje"></textarea>
                     })
                     .catch(error => {
                         console.error('Error al agregar la IA:', error);
+                        alert('Error al agregar la IA: ' + error.message);
                     });
             }
         });
-
         // Función para editar una IA
         function editIA(id) {
             if (!isAdminActive) {
                 showPasswordModal();
                 return;
             }
-            
+           
             iaRef.child(id).once('value', (snapshot) => {
                 const ia = snapshot.val();
-                
+               
                 if (ia) {
                     document.getElementById('name').value = ia.name;
-                    document.getElementById('logo').value = ia.logo;
-                    document.getElementById('link').value = ia.link;
-                    document.getElementById('features').value = ia.features.join('\n');
-                    
+                    document.getElementById('logo').value = ia.logo || '';
+                    document.getElementById('link').value = ia.link || '';
+                    document.getElementById('features').value = Array.isArray(ia.features) ? ia.features.join('\n') : '';
+                   
                     editingItemId = id;
                     submitBtn.innerHTML = '<i class="fas fa-save"></i> Actualizar IA';
                     cancelBtn.style.display = 'flex';
-                    
+                   
                     openAdminScreen();
                 }
             });
         }
-
         // Función para eliminar una IA
         function deleteIA(id) {
             if (!isAdminActive) {
                 showPasswordModal();
                 return;
             }
-            
+           
             if (confirm('¿Estás seguro de que quieres eliminar esta IA?')) {
                 iaRef.child(id).remove()
                     .then(() => {
@@ -1128,10 +1199,10 @@ Capacidad de aprendizaje"></textarea>
                     })
                     .catch(error => {
                         console.error('Error al eliminar la IA:', error);
+                        alert('Error al eliminar la IA: ' + error.message);
                     });
             }
         }
-
         // Función para resetear el formulario
         function resetForm() {
             iaForm.reset();
@@ -1139,13 +1210,10 @@ Capacidad de aprendizaje"></textarea>
             submitBtn.innerHTML = '<i class="fas fa-plus"></i> Agregar IA';
             cancelBtn.style.display = 'none';
         }
-
         // Event listener para el botón de cancelar
         cancelBtn.addEventListener('click', resetForm);
-
         // Inicializar controles y cargar preferencias
         loadPreferences();
-
         // Cargar los datos cuando la página esté lista
         document.addEventListener('DOMContentLoaded', loadIAData);
     </script>
